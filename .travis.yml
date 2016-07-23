@@ -1,6 +1,10 @@
 language: python
 python:
   - "3.5"
-install: "pip install -r requirements.txt"
-script: coverage run --source='.' manage.py test tests.weatherconnect
+install:
+  - pip install -r requirements.txt
+  - pip install coveralls
+script: coverage3 run --source='.' manage.py test tests.weatherconnect
+after_success:
+  - coveralls
 
