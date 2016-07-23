@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/matthieuchoplin/weatherama.svg?branch=master)](https://travis-ci.org/matthieuchoplin/weatherama)
+
+
 To start the project in development mode:
 
 If you are on a UNIX machine with python3 and virtualenv installed:
