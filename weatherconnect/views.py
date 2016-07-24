@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import loader
 from restless.exceptions import BadRequest
+
 from .forms import HomeForm
 
 from .api import WeatherResource
