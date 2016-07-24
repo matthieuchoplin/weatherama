@@ -1,0 +1,11 @@
+language: python
+python:
+  - "3.5"
+install:
+  - pip install -r requirements.txt
+  - pip install coveralls
+script: coverage3 run --source='.' manage.py test tests.weatherconnect
+after_success:
+  - coveralls
+before_script:
+  - flake8 --exclude=migrations,weatherama/settings.py .

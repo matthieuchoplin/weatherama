@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<head>
+    {# Jquery CDN : Needed when using jquery_on_ready=True #}
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    {% include_chart_jscss %}
+    {% load_chart charttype chartdata chartcontainer extra %}
+
+</head>
+<body>
+    <title>{{ city}} between {{start_date}} and {{end_date}}</title>
+    <h4>{{ city}}, between {{start_date}} and {{end_date}}</h4>
+    {% include_container chartcontainer 400 800 %}
+</body>
+{% endblock %}
