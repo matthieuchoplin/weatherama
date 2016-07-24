@@ -30,13 +30,15 @@ def latitude_longitude(city):
 
 def get_external_data(latitude, longitude, date_datetime):
     date_unixtime = int(mktime(date_datetime.timetuple()))
-    url = "https://api.forecast.io/forecast/{api}/" \
-          "{latitude},{longitude},{date_unixtime}?units=si".format(
-        api=settings.FORECAST_API_KEY,
-        latitude=latitude,
-        longitude=longitude,
-        date_unixtime=date_unixtime
-    )
+    if not hasattr(settings, 'FORECAST_API_KEY'):
+        raise BadRequest(msg="You need to configure the FORECAST_API_KEY")
+    url = "https://api.forecast.io/forecast/" \
+          "{api}/{latitude},{longitude},{date_unixtime}?units=si".format(
+              api=settings.FORECAST_API_KEY,
+              latitude=latitude,
+              longitude=longitude,
+              date_unixtime=date_unixtime
+          )
     resp = urlopen(url).read().decode('utf8')
     return json.loads(resp)
 

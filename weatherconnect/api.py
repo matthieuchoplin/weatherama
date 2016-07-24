@@ -59,7 +59,6 @@ class WeatherResource(DjangoResource):
                 'parameters: city, start_date, end_date'
         )
 
-
     @classmethod
     def urls(cls, name_prefix=None):
         return [

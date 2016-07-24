@@ -7,4 +7,5 @@ install:
 script: coverage3 run --source='.' manage.py test tests.weatherconnect
 after_success:
   - coveralls
-
+before_script:
+  - flake8 --exclude=migrations,weatherama/settings.py .

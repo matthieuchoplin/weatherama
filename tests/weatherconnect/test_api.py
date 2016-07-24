@@ -9,8 +9,8 @@ from restless.constants import BAD_REQUEST, OK
 class WeatherResourceTest(TestCase):
     def test_weather_data_bad_request(self):
         resp = self.client.get(
-                path='/api/weatherconnect/?missing_params=true'
-            )
+            path='/api/weatherconnect/?missing_params=true'
+        )
         resp_data = json.loads(resp.content.decode('utf-8'))
         self.assertEqual(resp_data['error'],
                          "The query should contain 3 "
@@ -19,10 +19,13 @@ class WeatherResourceTest(TestCase):
 
     @patch('weatherconnect.utils.get_external_data')
     def test_weather_data_bad_OK(self, mock_external_call):
-        with open(os.path.join('tests', 'weatherconnect', 'data', 'data.json'), 'r') as f:
+        with open(os.path.join('tests', 'weatherconnect', 'data', 'data.json'
+                               ), 'r') as f:
             mock_external_call.return_value = json.loads(f.read())
             resp = self.client.get(
-                path='/api/weatherconnect/?city=london&start_date=2013-05-06T20:00:00&end_date=2013-05-06T20:00:00'
+                path='/api/weatherconnect/?city=london&'
+                     'start_date=2013-05-06T20:00:00&'
+                     'end_date=2013-05-06T20:00:00'
             )
 
             resp_data = json.loads(resp.content.decode('utf-8'))
