@@ -1,7 +1,7 @@
 from datetime import datetime
 import json
 
-from time import mktime
+from time import mktime, strptime
 from urllib.request import urlopen
 
 from django.conf import settings
@@ -13,10 +13,14 @@ geolocator = Nominatim()
 
 
 def date_value_in_datetime(value):
-    cal = parsedatetime.Calendar()
-    time_struct, parse_status = cal.parse(value)
-    if parse_status == 0:
-        raise BadRequest(msg='Invalid Date')
+    try:
+        # from the web ui, we know that it will be this format
+        time_struct = strptime(value, "%d-%m-%Y")
+    except ValueError:
+        cal = parsedatetime.Calendar()
+        time_struct, parse_status = cal.parse(value)
+        if parse_status == 0:
+            raise BadRequest(msg='Invalid Date')
     return datetime.fromtimestamp(mktime(time_struct))
 
 

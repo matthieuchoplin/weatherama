@@ -24,6 +24,8 @@ class WeatherResource(DjangoResource):
             start_date_datetime = date_value_in_datetime(start_date)
             end_date_datetime = date_value_in_datetime(end_date)
             interval_of_days = (end_date_datetime - start_date_datetime).days
+            assert interval_of_days >= 0
+
             jobs = []
             manager1 = Manager()
             lst_tp = manager1.list()
@@ -47,12 +49,10 @@ class WeatherResource(DjangoResource):
                 'median_temperature': round(statistics.mean(lst_tp)),
                 'average_temperature': round(statistics.median(lst_tp)),
                 # HUMIDITY
-                'min_humidity': "{0:.0f}%".format(min(lst_hm) * 100),
-                'max_humidity': "{0:.0f}%".format(max(lst_hm) * 100),
-                'median_humidity': "{0:.0f}%".format(statistics.mean(
-                    lst_hm) * 100),
-                'average_humidity': "{0:.0f}%".format(statistics.median(
-                    lst_hm) * 100),
+                'min_humidity': min(lst_hm),
+                'max_humidity': max(lst_hm),
+                'median_humidity': statistics.mean(lst_hm),
+                'average_humidity': statistics.median(lst_hm),
             }
         raise BadRequest(
             msg='The query should contain 3 '

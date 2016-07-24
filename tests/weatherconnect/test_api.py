@@ -31,13 +31,13 @@ class WeatherResourceTest(TestCase):
             resp_data = json.loads(resp.content.decode('utf-8'))
             self.assertDictEqual(
                 resp_data,
-                {'average_humidity': '57%',
+                {'average_humidity': 0.575,
                  'average_temperature': 16,
-                 'max_humidity': '85%',
+                 'max_humidity': 0.85,
                  'max_temperature': 21,
-                 'median_humidity': '61%',
+                 'median_humidity': 0.6141666666666666,
                  'median_temperature': 16,
-                 'min_humidity': '41%',
+                 'min_humidity': 0.41,
                  'min_temperature': 11,
                  'period': '2013-05-06T20:00:00 to 2013-05-06T20:00:00'}
             )
