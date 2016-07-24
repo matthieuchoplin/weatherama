@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from collections import OrderedDict
+from django.contrib import messages
 from django.http import HttpResponse
 
 from django.shortcuts import render_to_response
-from django.template import RequestContext, loader
+from django.template import loader
+from restless.exceptions import BadRequest
 from .forms import HomeForm
 
 from .api import WeatherResource
@@ -20,7 +22,10 @@ def home(request):
                 'start_date': our_form.start_date.strftime('%d-%m-%Y'),
                 'end_date': our_form.end_date.strftime('%d-%m-%Y')
             }
-            return weather_discretebarchart(request)
+            try:
+                return weather_discretebarchart(request)
+            except BadRequest as e:
+                messages.error(request, str(e))
     else:
         form = HomeForm()
     t = loader.get_template('home.html')
